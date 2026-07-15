@@ -31,3 +31,17 @@ coverage/
 # Temp files
 tmp/
 temp/
+
+# Local AI/agent tooling & generated logs (not part of the product)
+docs/octo/
+.agents/
+.claude/
+.mcp.json
+docs/linkedin-evidence/
+docs/wiki/
+
+# Local assets & screenshots (repo root / docs only — app assets unaffected)
+/*.jpg
+docs/*.png
+docs/*.pdf
+/*.hol
