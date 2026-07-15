@@ -61,7 +61,6 @@ Key idea: **all reads and writes go through the Express API**, which talks to Su
 | `server/` | **Backend.** Express 4 + Socket.IO. Layered as `routes/ → controllers/ → services/` with cross-cutting `middleware/`. |
 | `supabase/` | **Schema.** 13 numbered SQL migrations, `seed.sql`, `reset_app_data.sql`. |
 | `mobile/` | Early-stage Expo / React Native client (auth screens working, main screens stubbed). Kept as an exploration; the shipped mobile apps come from `client/` via Capacitor. |
-| `flutter_app/` | Experimental Flutter companion client. |
 | `docs/` | Deployment guides, QA checklists, engineering notes. |
 | `render.yaml` | Render deployment config (single web service). |
 | `package.json` | npm workspaces wrapper: `build` builds the client, `start` runs the server. |
@@ -224,7 +223,7 @@ Pushing to `main` triggers a deploy; Supabase (Postgres/Auth/Storage/Realtime) i
 
 **One web service instead of separate frontend/backend deploys.** Same-origin serving removes CORS/cookie complexity and halves hosting cost. The trade-off — a frontend-only change redeploys the server — is acceptable at this scale.
 
-**Capacitor over React Native/Flutter for shipping mobile.** One React codebase produces web + iOS + Android with full feature parity, which mattered more than native-feel rendering for a chat/coordination app. The `mobile/` (Expo) and `flutter_app/` directories are retained explorations of the native-first alternative; Capacitor won on iteration speed.
+**Capacitor over React Native/Flutter for shipping mobile.** One React codebase produces web + iOS + Android with full feature parity, which mattered more than native-feel rendering for a chat/coordination app. The `mobile/` (Expo) directory is a retained exploration of the native-first alternative; Capacitor won on iteration speed.
 
 **Dual schema source (numbered migrations + boot-time `migrate.js`).** Numbered SQL files are the reviewed history; the idempotent boot migrator guarantees any environment converges to a working schema without a manual migration step — valuable when deploying to fresh Supabase projects. The cost is two places to read for the full schema; the boot migrator is the runtime source of truth.
 

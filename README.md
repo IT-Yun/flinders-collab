@@ -14,7 +14,6 @@ Ships as a **web app, iOS app, and Android app** from a single React codebase vi
 **Backend** — Node.js, Express 4, Socket.IO, Supabase (Postgres + Auth + Storage)
 **Infra / security** — Helmet, `express-rate-limit`, `express-validator`, CORS, compression, Web Push (VAPID), Multer uploads
 **Deploy** — Render (backend + static build), Supabase (managed Postgres + Auth + Storage)
-**Experimental** — Flutter companion client (`flutter_app/`)
 
 ## Features
 
@@ -65,7 +64,7 @@ supabase/
   migrations/             # 13 migrations (schema evolution)
   seed.sql, reset_app_data.sql
 
-flutter_app/              # companion Flutter client (experimental)
+mobile/                   # early Expo/React Native exploration (auth flows only)
 scripts/                  # maintenance scripts
 render.yaml               # Render deployment config
 ```
