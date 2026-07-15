@@ -3,9 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const API_URL = (() => {
   try {
     const config = require('../lib/config.js');
-    return config.API_URL || 'https://flinders-collab.onrender.com';
+    return config.API_URL || 'https://flinders-collab-id3a.onrender.com';
   } catch {
-    return 'https://flinders-collab.onrender.com';
+    return 'https://flinders-collab-id3a.onrender.com';
   }
 })();
 

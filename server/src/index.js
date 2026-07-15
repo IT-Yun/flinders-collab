@@ -182,7 +182,7 @@ server.listen(PORT, () => {
 
   // Keep-alive ping to prevent Render free tier from sleeping
   if (config.nodeEnv === 'production') {
-    const PING_URL = process.env.RENDER_EXTERNAL_URL || 'https://flinders-collab.onrender.com';
+    const PING_URL = process.env.RENDER_EXTERNAL_URL || 'https://flinders-collab-id3a.onrender.com';
     setInterval(() => {
       const https = require('https');
       https.get(`${PING_URL}/api/health`, () => {}).on('error', () => {});

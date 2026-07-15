@@ -3,7 +3,7 @@
 
 export const API_URL =
   process.env.EXPO_PUBLIC_API_URL ||
-  'https://flinders-collab.onrender.com';
+  'https://flinders-collab-id3a.onrender.com';
 
 export const SUPABASE_URL =
   process.env.EXPO_PUBLIC_SUPABASE_URL ||
