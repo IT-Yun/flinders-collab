@@ -4,7 +4,8 @@ A full-stack collaboration platform for Flinders University students: join rooms
 
 Ships as a **web app, iOS app, and Android app** from a single React codebase via Capacitor.
 
-🔗 **Live:** https://flinders-collab.onrender.com  *(private beta — invite only)*
+🔗 **Live:** https://flinders-collab-id3a.onrender.com  *(private beta — invite only)*
+📐 **Architecture deep-dive:** [ARCHITECTURE.md](./ARCHITECTURE.md) · [한국어](./ARCHITECTURE.ko.md)
 
 ## Tech stack
 
@@ -32,6 +33,8 @@ Ships as a **web app, iOS app, and Android app** from a single React codebase vi
 - **Reporting** — in-app reporting for content / users
 
 ## Architecture
+
+For the full picture — system diagram, request lifecycle, real-time message flow, data model (ER diagram), security layers, and the design trade-offs behind them — see **[ARCHITECTURE.md](./ARCHITECTURE.md)** ([한국어 버전](./ARCHITECTURE.ko.md)).
 
 ```
 client/                   # React + Vite web app (also wrapped in Capacitor)
