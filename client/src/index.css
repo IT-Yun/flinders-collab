@@ -1,0 +1,540 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 228 76% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 224 71% 4%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 228 76% 52%;
+    --radius: 0.75rem;
+    --sidebar-bg: 216 30% 97%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  @supports (height: 100svh) {
+    :root {
+      --viewport-height: 100svh;
+      --viewport-stable-height: 100svh;
+    }
+  }
+
+  @supports (height: 100dvh) {
+    :root {
+      --viewport-height: 100dvh;
+      --viewport-dynamic-height: 100dvh;
+    }
+  }
+
+  html {
+    height: 100%;
+    height: var(--viewport-stable-height);
+    height: var(--viewport-height);
+    overflow-x: clip;
+    overflow-y: hidden;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    letter-spacing: -0.011em;
+    text-rendering: optimizeLegibility;
+    height: 100%;
+    height: var(--viewport-stable-height);
+    height: var(--viewport-height);
+    overflow-x: clip;
+    overflow-y: hidden;
+  }
+
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+  }
+
+  body, #root {
+    height: var(--viewport-stable-height);
+    height: var(--viewport-height);
+  }
+
+  html.auth-scroll-page,
+  body.auth-scroll-page,
+  #root.auth-scroll-page {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+  }
+
+  #root {
+    isolation: isolate;
+    overflow-x: clip;
+    overflow-y: hidden;
+  }
+
+  /* Mobile safe area support — applied selectively, not on body to avoid double padding */
+  @supports(padding: env(safe-area-inset-top)) {
+    .safe-area-top {
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+  }
+
+  /* Native mobile feel */
+  html {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    touch-action: pan-x pan-y;
+    overscroll-behavior: none;
+  }
+
+  /* Prevent viewport scroll when keyboard opens in PWA standalone mode */
+  @media (display-mode: standalone) {
+    html, body, #root {
+      position: fixed;
+      width: 100%;
+      overflow: hidden;
+    }
+    html { height: 100%; }
+    body, #root {
+      height: var(--viewport-dynamic-height, 100dvh);
+    }
+  }
+
+  :root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+  }
+
+  /* Improved heading hierarchy for readability */
+  h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.02em;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    transition: box-shadow 0.2s var(--ease-smooth);
+  }
+
+  ::selection {
+    background: hsl(228 76% 52% / 0.15);
+    color: hsl(var(--foreground));
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: hsl(var(--muted-foreground) / 0.5);
+    opacity: 1;
+  }
+
+  /* Accessibility: respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Smooth scroll for the whole page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Better tap targets on mobile for accessibility */
+  @media (pointer: coarse) {
+    button, [role="button"], a, input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    input[type="checkbox"], input[type="radio"] {
+      min-height: 24px;
+      min-width: 24px;
+    }
+
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-slide-in-left,
+    .animate-slide-in-right,
+    .animate-scale-in,
+    .animate-bounce-in,
+    .animate-float,
+    .animate-shimmer,
+    .stagger-children > * {
+      animation: none !important;
+    }
+
+    .hover-lift:hover,
+    .hover-glow:hover {
+      transform: none;
+      box-shadow: inherit;
+    }
+  }
+}
+
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.2);
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.35);
+  }
+
+  /* Thin scrollbar for Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.2) transparent;
+  }
+
+  /* Hide scrollbar but keep scrollable */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Staggered animation for list children — beautiful entrance */
+  .stagger-children > * {
+    opacity: 0;
+    animation: slideUp 0.45s var(--ease-spring) forwards;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+  .stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+  .stagger-children > *:nth-child(n+9) { animation-delay: 400ms; }
+
+  /* Skeleton loading placeholder */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--muted));
+    border-radius: var(--radius);
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--background) / 0.6) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .min-h-app {
+    min-height: var(--viewport-stable-height);
+    min-height: var(--viewport-height);
+  }
+
+  .h-app {
+    height: var(--viewport-stable-height);
+    height: var(--viewport-height);
+  }
+
+  .pb-safe {
+    padding-bottom: var(--safe-bottom);
+  }
+
+  .pl-safe {
+    padding-left: var(--safe-left);
+  }
+
+  .pr-safe {
+    padding-right: var(--safe-right);
+  }
+
+  .px-safe {
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+
+  .overflow-x-safe {
+    overflow-x: clip;
+  }
+
+  .app-shell {
+    height: var(--viewport-stable-height);
+    height: var(--viewport-height);
+    overflow: hidden;
+  }
+
+  .app-shell-scroll {
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .safe-area-frame {
+    padding-top: var(--safe-top);
+    padding-right: var(--safe-right);
+    padding-bottom: var(--safe-bottom);
+    padding-left: var(--safe-left);
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px) saturate(1.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  }
+
+  .transition-smooth {
+    transition: all 0.2s var(--ease-smooth);
+  }
+
+  .transition-spring {
+    transition: all 0.35s var(--ease-spring);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(228, 76%, 52%), hsl(262, 80%, 55%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, hsl(28, 90%, 55%), hsl(350, 80%, 55%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s var(--ease-spring),
+                box-shadow 0.3s var(--ease-spring);
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(99, 102, 241, 0.12),
+                0 4px 10px -6px rgba(99, 102, 241, 0.06);
+  }
+
+  /* Gentle glow on hover — premium feel */
+  .hover-glow {
+    transition: box-shadow 0.35s var(--ease-spring);
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.08),
+                0 4px 16px -4px hsl(var(--primary) / 0.12),
+                0 12px 32px -8px hsl(var(--primary) / 0.08);
+  }
+
+  /* Interactive press feedback */
+  .press-scale {
+    transition: transform 0.15s var(--ease-smooth);
+  }
+  .press-scale:active {
+    transform: scale(0.97);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s var(--ease-smooth) forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s var(--ease-spring) forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.3s var(--ease-spring) forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.3s var(--ease-spring) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.35s var(--ease-spring) forwards;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.5s var(--ease-spring) forwards;
+  }
+
+  /* Gradient border effect — beautiful accent borders */
+  .gradient-border {
+    position: relative;
+    border: none;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, hsl(228, 76%, 52%), hsl(262, 80%, 55%));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Subtle noise texture for depth */
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Focus ring with smooth animated appearance */
+  .focus-ring {
+    transition: box-shadow 0.2s var(--ease-smooth);
+  }
+  .focus-ring:focus-visible {
+    box-shadow: 0 0 0 2px hsl(var(--background)),
+                0 0 0 4px hsl(var(--ring) / 0.5);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  50% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.4; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,0 +1,25 @@
+{
+  "appId": "au.edu.flinders.collab",
+  "appName": "Flinders Collab",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#3366CC",
+      "showSpinner": false,
+      "launchFadeOutDuration": 500
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#3366CC"
+    },
+    "Keyboard": {
+      "resize": "body",
+      "resizeOnFullScreen": true
+    }
+  }
+}

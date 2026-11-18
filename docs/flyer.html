@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collab - Flinders University Team App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(5, 1fr);
+      width: 100%;
+      height: 100%;
+      gap: 0;
+    }
+
+    .card {
+      border: 1px dashed #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8mm 6mm;
+      position: relative;
+      background: white;
+      gap: 4px;
+    }
+
+    .scissors {
+      position: absolute;
+      font-size: 8px;
+      color: #bbb;
+      line-height: 1;
+    }
+    .scissors.tl { top: 2px; left: 2px; }
+    .scissors.tr { top: 2px; right: 2px; transform: scaleX(-1); }
+    .scissors.bl { bottom: 2px; left: 2px; transform: scaleY(-1); }
+    .scissors.br { bottom: 2px; right: 2px; transform: scale(-1); }
+
+    .accent-bar {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #4F46E5, #7C3AED);
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .logo-svg {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .app-name {
+      font-size: 22px;
+      font-weight: 900;
+      color: #1E1B4B;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline-ko {
+      font-size: 9px;
+      color: #4F46E5;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 1px;
+    }
+
+    .tagline-en {
+      font-size: 7.5px;
+      color: #6B7280;
+      text-align: center;
+    }
+
+    .features {
+      font-size: 7px;
+      color: #374151;
+      text-align: center;
+      margin-top: 3px;
+      line-height: 1.6;
+      border-top: 1px solid #E5E7EB;
+      padding-top: 4px;
+      width: 100%;
+    }
+
+    .url {
+      font-size: 10px;
+      font-weight: 700;
+      color: #1E1B4B;
+      text-align: center;
+      margin-top: 4px;
+      letter-spacing: 0.2px;
+      border: 1.5px solid #4F46E5;
+      border-radius: 4px;
+      padding: 2px 8px;
+      width: 100%;
+    }
+
+    .scan-text {
+      font-size: 6.5px;
+      color: #9CA3AF;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        box-shadow: none;
+        page-break-after: avoid;
+      }
+    }
+
+    @media screen {
+      .page {
+        box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="grid">
+
+      <!-- Card template repeated 10 times (2 columns x 5 rows) -->
+
+      <!-- Row 1, Col 1 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg0" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg0)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 1, Col 2 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg1)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 2, Col 1 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg2)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 2, Col 2 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg3)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 3, Col 1 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg4)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 3, Col 2 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg5)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 4, Col 1 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg6)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 4, Col 2 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg7)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 5, Col 1 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg8" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg8)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+      <!-- Row 5, Col 2 -->
+      <div class="card">
+        <span class="scissors tl">✂</span>
+        <span class="scissors tr">✂</span>
+        <span class="scissors bl">✂</span>
+        <span class="scissors br">✂</span>
+        <div class="accent-bar"></div>
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="bg9" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4F46E5"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="112" fill="url(#bg9)"/>
+            <circle cx="196" cy="180" r="44" fill="rgba(255,255,255,0.9)"/>
+            <path d="M120 310 C120 265 155 240 196 240 C237 240 272 265 272 310 L272 320 C272 328 265 335 257 335 L135 335 C127 335 120 328 120 320 Z" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="316" cy="180" r="44" fill="rgba(255,255,255,0.65)"/>
+            <path d="M240 310 C240 265 275 240 316 240 C357 240 392 265 392 310 L392 320 C392 328 385 335 377 335 L255 335 C247 335 240 328 240 320 Z" fill="rgba(255,255,255,0.65)"/>
+            <circle cx="206" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="256" cy="390" r="14" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="306" cy="390" r="10" fill="rgba(255,255,255,0.5)"/>
+            <line x1="216" y1="390" x2="242" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+            <line x1="270" y1="390" x2="296" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+          </svg>
+          <span class="app-name">Collab</span>
+        </div>
+        <div class="tagline-ko">플린더스 대학교 팀 협업 앱</div>
+        <div class="tagline-en">Team Collaboration for Flinders Students</div>
+        <div class="features">실시간 채팅 · 일정 관리 · 파일 공유 · 위치 공유</div>
+        <div class="url">flinders-collab.onrender.com</div>
+        <div class="scan-text">🔗 Scan QR or visit the URL above</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

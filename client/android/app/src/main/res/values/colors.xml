@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Flinders University branding colors -->
+    <color name="colorPrimary">#3366CC</color>
+    <color name="colorPrimaryDark">#1A3D7C</color>
+    <color name="colorAccent">#E6A817</color>
+    <color name="colorSplashBackground">#3366CC</color>
+    <color name="colorWhite">#FFFFFF</color>
+</resources>

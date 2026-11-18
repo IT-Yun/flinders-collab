@@ -1,0 +1,19 @@
+{
+  "name": "flinders-team-app",
+  "version": "1.0.0",
+  "description": "A university team collaboration app for Flinders University students",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "start:server": "npm start --workspace=server",
+    "build": "npm run build --workspace=client",
+    "start": "NODE_ENV=production node server/src/index.js"
+  },
+  "keywords": ["flinders", "university", "team", "collaboration"],
+  "license": "MIT"
+}
